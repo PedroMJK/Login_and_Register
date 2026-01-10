@@ -1,7 +1,10 @@
+/* =========================
+   ROOT & RESET
+========================= */
 
 :root {
-    --primary:red;
-    --light-color:#fff;
+    --primary: red;
+    --light-color: #fff;
     --dark-color: #044576;
 }
 
@@ -12,26 +15,35 @@
     font-family: 'Poppins', sans-serif;
 }
 
+/* =========================
+   BODY & BACKGROUND
+========================= */
+
 body {
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background: url('Background-image.jpg') no-repeat;
-    background-size: cover;
-    background-position: center;
+    background: url('Background-image.jpg') no-repeat center / cover;
 }
 
+/* =========================
+   HEADER & NAVIGATION
+========================= */
+
 header {
-    align-items: center;
-    display: flex;
-    justify-content: space-between;
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    padding: 20px 100px;
     z-index: 99;
+    background-color: var(--dark-color);
+
+    width: 100%;
+    padding: 15px 20px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .logo {
@@ -42,11 +54,12 @@ header {
 
 .navigation a {
     position: relative;
+    margin-left: 40px;
+
     font-size: 1.1em;
+    font-weight: 500;
     color: var(--light-color);
     text-decoration: none;
-    font-weight: 500px;
-    margin-left: 40px;
 }
 
 .navigation a::after {
@@ -54,12 +67,14 @@ header {
     position: absolute;
     left: 0;
     bottom: -6px;
+
     width: 100%;
     height: 3px;
     background-color: var(--light-color);
     border-radius: 5px;
-    transform-origin: right;
+
     transform: scaleX(0);
+    transform-origin: right;
     transition: transform .5s;
 }
 
@@ -69,17 +84,20 @@ header {
 }
 
 .navigation .btnLogin-popup {
+    margin-left: 40px;
+
     width: 130px;
     height: 50px;
-    background-color: transparent;
+
+    background: transparent;
     border: 2px solid var(--light-color);
-    outline: none;
     border-radius: 6px;
+
     cursor: pointer;
     font-size: 1.1em;
+    font-weight: 500;
     color: var(--light-color);
-    font-weight: 500px;
-    margin-left: 40px;
+
     transition: .5s;
 }
 
@@ -88,31 +106,45 @@ header {
     color: var(--dark-color);
 }
 
+/* =========================
+   MODAL WRAPPER
+========================= */
+
 .wrapper {
     position: relative;
-    margin-top: 60px;
-    width: 400px;
-    height: 440px;
+    margin-top: 100px;
+
+    width: 90%;
+    max-width: 400px;
+    min-height: 440px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
     background: transparent;
     border: 2px solid rgba(225, 225, 225, .5);
     border-radius: 20px;
     backdrop-filter: blur(20px);
+
     box-shadow: 0 0 30px rgba(0, 0, 0, .5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
     overflow: hidden;
+
     transform: scale(0);
     transition: transform .5s ease, height .2s ease;
 }
 
-.wrapper.active-popup {
+.wrapper.is-active-popup {
     transform: scale(1);
 }
 
-.wrapper.active {
+.wrapper.is-active {
     height: 520px;
 }
+
+/* =========================
+   FORM BOXES
+========================= */
 
 .wrapper .form-box {
     width: 100%;
@@ -120,43 +152,57 @@ header {
 }
 
 .wrapper .form-box.login {
-    transition: transform .18s ease;
     transform: translateX(0);
+    transition: transform .18s ease;
 }
 
-.wrapper.active .form-box.login {
-    transition: none;
+.wrapper.is-active .form-box.login {
     transform: translateX(-400px);
-
+    transition: none;
 }
 
 .wrapper .form-box.register {
     position: absolute;
-    transition: none;
     transform: translateX(400px);
+    transition: none;
 }
 
-.wrapper.active .form-box.register {
-    transition: transform .18s ease;
+.wrapper.is-active .form-box.register {
     transform: translateX(0);
+    transition: transform .18s ease;
 }
+
+/* =========================
+   CLOSE ICON
+========================= */
 
 .wrapper .icon-close {
     position: absolute;
     top: 0;
     right: 0;
+
     width: 45px;
     height: 45px;
-    background-color: var(--dark-color);
-    color: var(--light-color);
-    font-size: 2em;
+
     display: flex;
     justify-content: center;
     align-items: center;
+
+    background-color: var(--dark-color);
+    color: var(--light-color);
+    font-size: 2em;
+
     border-bottom-left-radius: 20px;
     cursor: pointer;
     z-index: 1;
 }
+.icon-close:hover {
+    background-color: #033459;
+}
+
+/* =========================
+   FORM CONTENT
+========================= */
 
 .form-box h2 {
     font-size: 2em;
@@ -164,64 +210,108 @@ header {
     text-align: center;
 }
 
+/* =========================
+   INPUTS
+========================= */
+
 .input-box {
     position: relative;
     width: 100%;
     height: 50px;
-    border-bottom: 2px solid var(--dark-color);
     margin: 30px 0;
+
+    border-bottom: 2px solid var(--dark-color);
+}
+
+.input-box input {
+    width: 100%;
+    height: 100%;
+
+    background: transparent;
+    border: none;
+    outline: none;
+
+    font-size: 1em;
+    font-weight: 600;
+    color: var(--dark-color);
+
+    padding: 0 35px 0 5px;
 }
 
 .input-box label {
     position: absolute;
     top: 50%;
     left: 5px;
+
+    padding: 0 5px;
     transform: translateY(-50%);
+
     font-size: 1em;
-    color: var(--dark-color);
     font-weight: 500;
+    color: var(--dark-color);
+
     pointer-events: none;
     transition: .5s;
 }
 
-.input-box input:focus~label,
-.input-box input:focus~label {
+.input-box input:focus ~ label,
+.input-box input:not(:placeholder-shown) ~ label {
     top: -5px;
-}
-
-.input-box input {
-    width: 100%;
-    height: 100%;
-    background: transparent;
-    border: none;
-    outline: none;
-    font-size: 1em;
-    color: var(--dark-color);
-    font-weight: 600;
-    padding: 0 35px 0 5px;
+    font-size: .85em;
 }
 
 .input-box .icon {
-  position: absolute;
-  right: 8px;
-  font-size: 1.2em;
-  color: var(--dark-color);
-  line-height: 57px;
+    position: absolute;
+    right: 8px;
+
+    font-size: 1.2em;
+    color: var(--dark-color);
+    line-height: 57px;
 }
 
-.remember-forgot {
-    font-size: .9em;
+/* =========================
+   PASSWORD TOGGLE
+========================= */
+
+.password-box {
+    position: relative;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 35px;
+    top: 60%;
+    transform: translateY(-50%);
+
+    cursor: pointer;
+    font-size: 1.2em;
     color: var(--dark-color);
-    font-weight: 500;
+
+    user-select: none;
+}
+
+.toggle-password:hover {
+    opacity: .7;
+}
+
+/* =========================
+   REMEMBER & FORGOT
+========================= */
+
+.remember-forgot {
     margin: -15px 0 15px;
+
     display: flex;
     justify-content: space-between;
+
+    font-size: .9em;
+    font-weight: 500;
+    color: var(--dark-color);
 }
 
 .remember-forgot label input {
-    accent-color: var(--dark-color);
     margin-right: 3px;
-    text-decoration: underline;
+    accent-color: var(--dark-color);
 }
 
 .remember-forgot a {
@@ -233,35 +323,165 @@ header {
     text-decoration: underline;
 }
 
+/* =========================
+   BUTTONS & LINKS
+========================= */
+
 .btn {
-    margin: 10px;
     width: 100%;
     height: 40px;
+    margin: 10px 0;
+
     background: var(--dark-color);
     border: none;
-    outline: #30c110;
     border-radius: 6px;
+
     cursor: pointer;
     font-size: 1em;
-    color: var(--light-color);
     font-weight: 500;
+    color: var(--light-color);
+}
+
+.btn:hover {
+    background-color: #033459;
 }
 
 .login-register {
-    font-size: .9em;
-    color: var(--dark-color);
-    text-align: center;
-    font-weight: 500;
     margin: 25px 0 10px;
+
+    font-size: .9em;
+    font-weight: 500;
+    text-align: center;
+    color: var(--dark-color);
 }
 
 .login-register p a {
-    margin: 5px;
-    color: var(--dark-color);
+    margin-left: 5px;
+
     font-weight: 700;
+    color: var(--dark-color);
     text-decoration: none;
 }
 
 .login-register a:hover {
     text-decoration: underline;
+}
+
+/* =========================
+   RESPONSIVIDADE
+========================= */
+
+/* Tablets */
+@media (max-width: 768px) {
+    header {
+        padding: 15px 30px;
+    }
+
+    .navigation a {
+        margin-left: 20px;
+        font-size: 1em;
+    }
+}
+
+/* Celulares */
+@media (max-width: 580px) {
+    body {
+        align-items: flex-start;
+        display: block;
+    }
+
+    header {
+        position: relative;
+        gap: 10px;
+        background-color: #044576;
+    }
+
+    .navigation {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .navigation a {
+        margin-left: 0;
+        font-size: .95em;
+    }
+
+    .navigation .btnLogin-popup {
+        width: 50%;
+        margin: 10px 0;
+    }
+
+    .wrapper {
+        width:80%;
+        max-width: none;
+        margin: 20px auto;
+        padding-bottom: 20px;
+    }
+
+     .wrapper .icon-close {
+        z-index: 1001;
+    }
+
+    .wrapper.is-active-popup {
+        margin-top: 30px; 
+    }
+
+    .form-box {
+        padding: 25px;
+    }
+
+    .remember-forgot {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+}
+
+/* =========================
+   MENU HAMBURGUER
+========================= */
+.menu-toggle {
+    display: none;
+    font-size: 2em;
+    color: #fff;
+    cursor: pointer;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 768px) {
+
+    .menu-toggle {
+        display: block;
+    }
+
+    .navigation {
+        position: absolute;
+        top: 70px;
+        left: 0;
+
+        width: 100%;
+        height: 0;
+        overflow: hidden;
+
+        background: var(--dark-color);
+        backdrop-filter: blur(10px);
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        transition: height .4s ease;
+    }
+
+    .navigation.active {
+        height: 300px;
+    }
+
+    .navigation a,
+    .navigation .btnLogin-popup {
+        margin: 15px 0;
+    }
 }
