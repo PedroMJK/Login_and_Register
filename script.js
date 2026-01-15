@@ -8,6 +8,8 @@ const navigation = document.querySelector(".navigation");
 const loginForm = document.querySelector(".form-box.login form");
 const registerForm = document.querySelector(".form-box.register form");
 
+const API_URL = "https://login-register-backend-noo7.onrender.com";
+
 // Helpers
 const clearForm = (form) => {
     if (form) form.reset();
@@ -91,7 +93,7 @@ loginFormSubmit.addEventListener("submit", async (event) => {
     const password = document.getElementById("login-password").value;
 
     try {
-        const response = await fetch("http://localhost:3333/api/auth/login", {
+        const response = await fetch(`${API_URL}/api/auth/login`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -171,7 +173,7 @@ registerFormSubmit.addEventListener("submit", async (event) => {
     const password = document.getElementById("register-password").value;
 
     try {
-        const response = await fetch("http://localhost:3333/api/auth/register", {
+        const response = await fetch(`${API_URL}/api/auth/register`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
