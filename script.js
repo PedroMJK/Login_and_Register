@@ -77,3 +77,121 @@ navigation
         item.addEventListener("click", closeNavigationMenu)
     })
 
+/* ============================
+   Authentication - Login
+   ============================ */
+
+const loginFormSubmit = document.getElementById("login-form");
+
+loginFormSubmit.addEventListener("submit", async (event) => {
+    // Para evitar o reload da página
+    event.preventDefault();
+
+    const email = document.getElementById("login-email").value;
+    const password = document.getElementById("login-password").value;
+
+    try {
+        const response = await fetch("http://localhost:3333/api/auth/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ email, password }),
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            alert(data.message || "Login failed");
+            return;
+        }
+
+        // Guardar token
+        localStorage.setItem("token", data.token);
+
+        alert("Login successful");
+
+        // Exemplo de ação pós-login
+        closeLoginPopup()
+    } catch (error) {
+        alert("Server error");
+    }
+});
+
+const getToken = () => {
+    return localStorage.getItem("token");
+};
+
+const loadUserProfile = async () => {
+    const token = getToken();
+
+    if (!token) {
+        alert("You must be logged in");
+        return;
+    }
+
+    try {
+        const response = await fetch("http://localhost:3333/api/users/profile", {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            alert(data.message);
+            return;
+        }
+
+        console.log("Profile:", data);
+        alert("Access granted");
+    } catch (error) {
+        alert("Server error");
+    }
+};
+
+const logout = () => {
+    localStorage.removeItem("token");
+    alert("Logged out");
+}
+
+    /* ============================
+   Registration Form Handling
+   ============================ */
+
+
+const registerFormSubmit = document.getElementById("register-form");
+
+registerFormSubmit.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    const name = document.getElementById("register-name").value;
+    const email = document.getElementById("register-email").value;
+    const password = document.getElementById("register-password").value;
+
+    try {
+        const response = await fetch("http://localhost:3333/api/auth/register", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ name, email, password }),
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            alert(data.message || "Registration failed");
+            return;
+        }
+
+        alert("Registration successful! You can now log in.");
+
+        // Volta para o login
+        showLoginForm();
+
+    } catch (error) {
+        alert("Server error");
+    }
+});
